@@ -76,15 +76,36 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+   3.  Technical, Protocol Constraints on Root Zone Generation
+     3.1.  Constraints on Root Zone Apex Resource Record Sets
+     3.2.  DNS Security Extensions (DNSSEC)
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Acknowledgments
    Author's Address
 
 1.  Introduction
 
-   TODO Introduction
+   The Domain Name System (DNS), originally specified in [RFC1034] and
+   [RFC1035], implements a namespace that is distributed structurally as
+   a collection of zones, connected together as a tree.  The root zone
+   in the DNS is the ancestor of all other zones.
+
+   From the perspective of the DNS protocol, all zones in the DNS share
+   the same essential properties.  However, the root zone is special in
+   some ways by virtue of its location within the namespace.  For
+   example, the root zone has no parent, and so mechanisms for trust
+   anchor distribution or identification of authoritative nameservers
+   that rely on the existance of a parent zone are not available.
+
+   This document describes a minimal set of technical constraints for
+   the construction of the root zone.  This document specifically does
+   not aim to encapsulate a complete or sufficient set of policies for
+   the root zone to meet the wider requirements of the DNS, for all of
+   which this document defers to other competent authorities.
 
 2.  Conventions and Definitions
 
@@ -94,31 +115,133 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+   This document assumes a familiarity with the DNS terminology
+   described in [RFC9499].
 
-   TODO Security
+3.  Technical, Protocol Constraints on Root Zone Generation
 
-4.  IANA Considerations
+3.1.  Constraints on Root Zone Apex Resource Record Sets
 
-   This document has no IANA actions.
+   The root zone MUST include exactly one SOA resource record with empty
+   owner name and class IN.  This is a consequence of the requirements
+   for DNS zones described in [RFC1034] and [RFC1035].
 
-5.  Normative References
+   The root zone MUST include an NS resource record set with empty owner
+   name and class IN, as described in [RFC1034] and [RFC1035].  This is
+   a consequence of the requirements for DNS zones described in
+   [RFC1034] and [RFC1035].
+
+   This document does not specify particular values for the SOA
+   parameters included in the SOA resource record RDATA, the NS record
+   targets, the number of NS resource records in the NS RRSet or the TTL
+   of any of the RRSets described above.  All such policy decisions are
+   instead deferred to the appropriate competent authorities.
+
+   The root zone MUST NOT include A or AAAA resource records with empty
+   owner name and class IN.  Multiple specifications make use of an
+   empty domain name to mean "not available", including [RFC2782],
+   [RFC7505] and [RFC9460].  However, some naive DNS clients are
+   observed to misinterpret such signals, with the result that queries
+   with empty QNAME, QCLASS="IN" and QTYPE="A" or "AAAA" are observed at
+   root servers.  Positive responses to such queries would have poor
+   security characteristics.
+
+3.2.  DNS Security Extensions (DNSSEC)
+
+   DNSSEC MUST be deployed in the root zone, as specified in [RFC4033],
+   [RFC4034] and [RFC4035].
+
+   This document does not specify practices around key management,
+   signature generation, algorithm choice or any other parameter
+   choices.
+
+   It is acknowledged that correct and proper management of DNSSEC in
+   the root zone includes making pragmatic, operational decisions, and
+   this document specifically does not specify how DNSSEC should be
+   deployed in any particular circumstance or at any particular time.
+   All such policy decisions are instead deferred to the appropriate
+   competent authorities.
+
+4.  Security Considerations
+
+   This document aims to provide certainty for fundamental, technical
+   protocol aspects of the root zone of the DNS, including the
+   deployment of DNSSEC in the root zone.
+
+   This document does not present any new risks to the Internet.
+
+5.  IANA Considerations
+
+   This document describes technical, protocol constraints on the
+   generation of the DNS root zone which should be incorporated as
+   appropriate into the root zone management responsibilities of the
+   IANA.
+
+6.  References
+
+6.1.  Normative References
+
+   [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
+              STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
+              <https://www.rfc-editor.org/rfc/rfc1034>.
+
+   [RFC1035]  Mockapetris, P., "Domain names - implementation and
+              specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
+              November 1987, <https://www.rfc-editor.org/rfc/rfc1035>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
+              Rose, "DNS Security Introduction and Requirements",
+              RFC 4033, DOI 10.17487/RFC4033, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc4033>.
+
+   [RFC4034]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
+              Rose, "Resource Records for the DNS Security Extensions",
+              RFC 4034, DOI 10.17487/RFC4034, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc4034>.
+
+   [RFC4035]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
+              Rose, "Protocol Modifications for the DNS Security
+              Extensions", RFC 4035, DOI 10.17487/RFC4035, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc4035>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC9499]  Hoffman, P. and K. Fujiwara, "DNS Terminology", BCP 219,
+              RFC 9499, DOI 10.17487/RFC9499, March 2024,
+              <https://www.rfc-editor.org/rfc/rfc9499>.
+
+6.2.  Informative References
+
+   [RFC2782]  Gulbrandsen, A., Vixie, P., and L. Esibov, "A DNS RR for
+              specifying the location of services (DNS SRV)", RFC 2782,
+              DOI 10.17487/RFC2782, February 2000,
+              <https://www.rfc-editor.org/rfc/rfc2782>.
+
+   [RFC7505]  Levine, J. and M. Delany, "A "Null MX" No Service Resource
+              Record for Domains That Accept No Mail", RFC 7505,
+              DOI 10.17487/RFC7505, June 2015,
+              <https://www.rfc-editor.org/rfc/rfc7505>.
+
+   [RFC9460]  Schwartz, B., Bishop, M., and E. Nygren, "Service Binding
+              and Parameter Specification via the DNS (SVCB and HTTPS
+              Resource Records)", RFC 9460, DOI 10.17487/RFC9460,
+              November 2023, <https://www.rfc-editor.org/rfc/rfc9460>.
+
 Acknowledgments
 
-   TODO acknowledge.
+   Your!  Name!  Here!
 
 Author's Address
 
    Joe Abley
    Cloudflare
+   Amsterdam
+   Netherlands
    Email: jabley@cloudflare.com
