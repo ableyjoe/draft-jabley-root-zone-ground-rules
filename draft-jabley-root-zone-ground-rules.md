@@ -1,15 +1,14 @@
 ---
 title: "Base Protocol Requirements for the Root Zone of the DNS"
-abbrev: "Root Zone Ground Rules"
 category: std
 
-docname: draft-jabley-root-zone-ground-rules
+docname: draft-jabley-root-zone-ground-rules-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
+area: Operations
 workgroup: Network Working Group
 keyword:
  - dns
@@ -18,9 +17,9 @@ venue:
   group: dnsop
   type: Working Group
   mail: dnsop@ietf.org
-  arch: https://example.com/WG
-  github: ableyjoe/draft-jabley-root-zone-ground-rules
-  latest: https://example.com/LATEST
+  arch: https://datatracker.ietf.org/wg/dnsop/about/
+  github: "ableyjoe/draft-jabley-root-zone-ground-rules"
+  latest: "https://ableyjoe.github.io/draft-jabley-root-zone-ground-rules/draft-jabley-root-zone-ground-rules.html"
 
 author:
  -
