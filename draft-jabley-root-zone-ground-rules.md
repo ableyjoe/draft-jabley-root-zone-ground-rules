@@ -42,7 +42,7 @@ The root zone of the DNS is, in almost all ways, a DNS zone like
 any other.  However, there are a small number of ways in which the
 root zone has special requirements, for reasons relating to DNS
 protocol or operational considerations.  This document describes
-the ways in which the root zone is special and the corresponding
+some ways in which the root zone is special and imposes corresponding
 technical requirements on the contents of the root zone. These
 requirements form a minimal starting point for other policies that
 relate to the root zone of the DNS, many of which are developed and
@@ -60,9 +60,9 @@ The root zone in the DNS is the ancestor of all other zones.
 From the perspective of the DNS protocol, all zones in the DNS share
 the same essential properties.  However, the root zone is special
 in some ways by virtue of its location within the namespace. For
-example, the root zone has no parent, and so mechanisms for trust
-anchor distribution or identification of authoritative nameservers
-that rely on the existance of a parent zone are not available.
+example, as the ancestor of all other zones, a chain of trust to a
+key used to generate signatures in other zones relies upon secure
+delegations being used from the root zone for direct children.
 
 This document describes a minimal set of technical constraints for
 the construction of the root zone. This document specifically does
@@ -104,7 +104,7 @@ empty domain name to mean "not available", including {{?RFC2782}},
 observed to misinterpret such signals, with the result that queries
 with empty QNAME, QCLASS="IN" and QTYPE="A" or "AAAA" are observed
 at root servers. Positive responses to such queries would have poor
-security characteristics.
+security characteristics and are therefore prohibited.
 
 ## DNS Security Extensions (DNSSEC)
 
