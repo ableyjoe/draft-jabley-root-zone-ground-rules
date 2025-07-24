@@ -99,8 +99,8 @@ are instead deferred to the appropriate competent authorities.
 
 The root zone MUST NOT include A or AAAA resource records with empty
 owner name and class IN. Multiple specifications make use of an
-empty domain name to mean "not available", including {{RFC2782}},
-{{RFC7505}} and {{RFC9460}}. However, some naive DNS clients are
+empty domain name to mean "not available", including {{?RFC2782}},
+{{?RFC7505}} and {{?RFC9460}}. However, some naive DNS clients are
 observed to misinterpret such signals, with the result that queries
 with empty QNAME, QCLASS="IN" and QTYPE="A" or "AAAA" are observed
 at root servers. Positive responses to such queries would have poor
