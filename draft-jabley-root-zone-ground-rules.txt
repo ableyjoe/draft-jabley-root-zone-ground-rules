@@ -2,34 +2,44 @@
 
 
 
-WG Working Group                                              Y. N. Here
-Internet-Draft                                    Your Organization Here
-Intended status: Informational                              24 July 2025
+Network Working Group                                           J. Abley
+Internet-Draft                                                Cloudflare
+Intended status: Standards Track                            24 July 2025
 Expires: 25 January 2026
 
 
-                           TODO - Your title
-                  draft-todo-yourname-protocol-latest
+        Base Protocol Requirements for the Root Zone of the DNS
+               draft-jabley-root-zone-ground-rules-latest
 
 Abstract
 
-   TODO Abstract
+   The root zone of the DNS is, in almost all ways, a DNS zone like any
+   other.  However, there are a small number of ways in which the root
+   zone has special requirements, for reasons relating to DNS protocol
+   or operational considerations.  This document describes the ways in
+   which the root zone is special and the corresponding technical
+   requirements on the contents of the root zone.  These requirements
+   form a minimal starting point for other policies that relate to the
+   root zone of the DNS, many of which are developed and implemented
+   outside the IETF.
 
 About This Document
 
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-todo-yourname-
-   protocol/.
+   https://ableyjoe.github.io/draft-jabley-root-zone-ground-rules/draft-
+   jabley-root-zone-ground-rules.html.  Status information for this
+   document may be found at https://datatracker.ietf.org/doc/draft-
+   jabley-root-zone-ground-rules/.
 
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   Discussion of this document takes place on the dnsop Working Group
+   mailing list (mailto:dnsop@ietf.org), which is archived at
+   https://datatracker.ietf.org/wg/dnsop/about/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/dnsop/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/USER/REPO.
+   https://github.com/ableyjoe/draft-jabley-root-zone-ground-rules.
 
 Status of This Memo
 
@@ -109,6 +119,6 @@ Acknowledgments
 
 Author's Address
 
-   Your Name Here
-   Your Organization Here
-   Email: your.email@example.com
+   Joe Abley
+   Cloudflare
+   Email: jabley@cloudflare.com
