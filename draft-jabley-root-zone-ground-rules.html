@@ -8,14 +8,15 @@
 <meta content="Joe Abley" name="author">
 <meta content="
        The root zone of the DNS is, in almost all ways, a DNS zone like
-any other.  However, there are a small number of ways in which the
-root zone has special requirements, for reasons relating to DNS
-protocol or operational considerations.  This document describes
-some ways in which the root zone is special and imposes corresponding
-technical requirements on the contents of the root zone. These
-requirements form a minimal starting point for other policies that
-relate to the root zone of the DNS, many of which are developed and
-implemented outside the IETF. 
+any other, and shares the same DNS protocol requirements.  However,
+there are a small number of ways in which the root zone is special,
+in some cases as a consequence of the wider DNS protocol protocol
+or for operational reason.  This document describes some ways in
+which the root zone is special and imposes corresponding technical
+requirements on the contents of the root zone. These requirements
+form a minimal starting point for other policies that relate to the
+root zone of the DNS, many of which are developed and implemented
+outside the IETF. 
     " name="description">
 <meta content="xml2rfc 3.30.0" name="generator">
 <meta content="dns" name="keyword">
@@ -1057,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Abley</td>
-<td class="center">Expires 25 January 2026</td>
+<td class="center">Expires 26 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-jabley-root-zone-ground-rules-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-24" class="published">24 July 2025</time>
+<time datetime="2025-07-25" class="published">25 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-25">25 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-01-26">26 January 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1089,14 +1090,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">The root zone of the DNS is, in almost all ways, a DNS zone like
-any other.  However, there are a small number of ways in which the
-root zone has special requirements, for reasons relating to DNS
-protocol or operational considerations.  This document describes
-some ways in which the root zone is special and imposes corresponding
-technical requirements on the contents of the root zone. These
-requirements form a minimal starting point for other policies that
-relate to the root zone of the DNS, many of which are developed and
-implemented outside the IETF.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+any other, and shares the same DNS protocol requirements.  However,
+there are a small number of ways in which the root zone is special,
+in some cases as a consequence of the wider DNS protocol protocol
+or for operational reason.  This document describes some ways in
+which the root zone is special and imposes corresponding technical
+requirements on the contents of the root zone. These requirements
+form a minimal starting point for other policies that relate to the
+root zone of the DNS, many of which are developed and implemented
+outside the IETF.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1133,7 +1135,7 @@ implemented outside the IETF.<a href="#section-abstract-1" class="pilcrow">¶</a
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1172,10 +1174,10 @@ implemented outside the IETF.<a href="#section-abstract-1" class="pilcrow">¶</a
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-technical-protocol-constrai" class="internal xref">Technical, Protocol Constraints on Root Zone Generation</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-constraints-on-root-zone-ap" class="internal xref">Constraints on Root Zone Apex Resource Record Sets</a></p>
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-constraints-commnon-to-all-" class="internal xref">Constraints Commnon to All Zones</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-dns-security-extensions-dns" class="internal xref">DNS Security Extensions (DNSSEC)</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-special-constraints-for-the" class="internal xref">Special Constraints for the Root Zone</a></p>
 </li>
             </ul>
 </li>
@@ -1214,7 +1216,8 @@ implemented outside the IETF.<a href="#section-abstract-1" class="pilcrow">¶</a
 <p id="section-1-1">The Domain Name System (DNS), originally specified in <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>
 and <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, implements a namespace that is distributed
 structurally as a collection of zones, connected together as a tree.
-The root zone in the DNS is the ancestor of all other zones.<a href="#section-1-1" class="pilcrow">¶</a></p>
+The root zone in the DNS is the ancestor of all other zones and
+has no parent.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">From the perspective of the DNS protocol, all zones in the DNS share
 the same essential properties.  However, the root zone is special
 in some ways by virtue of its location within the namespace. For
@@ -1246,10 +1249,10 @@ in <span>[<a href="#RFC9499" class="cite xref">RFC9499</a>]</span>.<a href="#sec
       <h2 id="name-technical-protocol-constrai">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-technical-protocol-constrai" class="section-name selfRef">Technical, Protocol Constraints on Root Zone Generation</a>
       </h2>
-<div id="constraints-on-root-zone-apex-resource-record-sets">
+<div id="constraints-commnon-to-all-zones">
 <section id="section-3.1">
-        <h3 id="name-constraints-on-root-zone-ap">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-constraints-on-root-zone-ap" class="section-name selfRef">Constraints on Root Zone Apex Resource Record Sets</a>
+        <h3 id="name-constraints-commnon-to-all-">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-constraints-commnon-to-all-" class="section-name selfRef">Constraints Commnon to All Zones</a>
         </h3>
 <p id="section-3.1-1">The root zone <span class="bcp14">MUST</span> include exactly one SOA resource record with
 empty owner name and class IN. This is a consequence of the
@@ -1264,32 +1267,32 @@ parameters included in the SOA resource record RDATA, the NS record
 targets, the number of NS resource records in the NS RRSet or the
 TTL of any of the RRSets described above. All such policy decisions
 are instead deferred to the appropriate competent authorities.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">The root zone <span class="bcp14">MUST NOT</span> include A or AAAA resource records with empty
+</section>
+</div>
+<div id="special-constraints-for-the-root-zone">
+<section id="section-3.2">
+        <h3 id="name-special-constraints-for-the">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-special-constraints-for-the" class="section-name selfRef">Special Constraints for the Root Zone</a>
+        </h3>
+<p id="section-3.2-1">The root zone <span class="bcp14">MUST NOT</span> include A or AAAA resource records with empty
 owner name and class IN. Multiple specifications make use of an
 empty domain name to mean "not available", including <span>[<a href="#RFC2782" class="cite xref">RFC2782</a>]</span>,
 <span>[<a href="#RFC7505" class="cite xref">RFC7505</a>]</span> and <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>. However, some naive DNS clients are
 observed to misinterpret such signals, with the result that queries
 with empty QNAME, QCLASS="IN" and QTYPE="A" or "AAAA" are observed
 at root servers. Positive responses to such queries would have poor
-security characteristics and are therefore prohibited.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="dns-security-extensions-dnssec">
-<section id="section-3.2">
-        <h3 id="name-dns-security-extensions-dns">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-dns-security-extensions-dns" class="section-name selfRef">DNS Security Extensions (DNSSEC)</a>
-        </h3>
-<p id="section-3.2-1">DNSSEC <span class="bcp14">MUST</span> be deployed in the root zone, as specified in
-<span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>, <span>[<a href="#RFC4034" class="cite xref">RFC4034</a>]</span> and <span>[<a href="#RFC4035" class="cite xref">RFC4035</a>]</span>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">This document does not specify practices around key management,
+security characteristics and are therefore prohibited.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">DNSSEC <span class="bcp14">MUST</span> be deployed in the root zone, as specified in
+<span>[<a href="#RFC9364" class="cite xref">RFC9364</a>]</span>.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">This document does not specify practices around key management,
 signature generation, algorithm choice or any other parameter
-choices.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">It is acknowledged that correct and proper management of DNSSEC in
+choices.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">It is acknowledged that correct and proper management of DNSSEC in
 the root zone includes making pragmatic, operational decisions, and
 this document specifically does not specify how DNSSEC should be
 deployed in any particular circumstance or at any particular time.
 All such policy decisions are instead deferred to the appropriate
-competent authorities.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+competent authorities.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1339,21 +1342,13 @@ IANA.<a href="#section-5-1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC4033">[RFC4033]</dt>
-        <dd>
-<span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"DNS Security Introduction and Requirements"</span>, <span class="seriesInfo">RFC 4033</span>, <span class="seriesInfo">DOI 10.17487/RFC4033</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4033">https://www.rfc-editor.org/rfc/rfc4033</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC4034">[RFC4034]</dt>
-        <dd>
-<span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"Resource Records for the DNS Security Extensions"</span>, <span class="seriesInfo">RFC 4034</span>, <span class="seriesInfo">DOI 10.17487/RFC4034</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4034">https://www.rfc-editor.org/rfc/rfc4034</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC4035">[RFC4035]</dt>
-        <dd>
-<span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"Protocol Modifications for the DNS Security Extensions"</span>, <span class="seriesInfo">RFC 4035</span>, <span class="seriesInfo">DOI 10.17487/RFC4035</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4035">https://www.rfc-editor.org/rfc/rfc4035</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9364">[RFC9364]</dt>
+        <dd>
+<span class="refAuthor">Hoffman, P.</span>, <span class="refTitle">"DNS Security Extensions (DNSSEC)"</span>, <span class="seriesInfo">BCP 237</span>, <span class="seriesInfo">RFC 9364</span>, <span class="seriesInfo">DOI 10.17487/RFC9364</span>, <time datetime="2023-02" class="refDate">February 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9364">https://www.rfc-editor.org/rfc/rfc9364</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9499">[RFC9499]</dt>
       <dd>

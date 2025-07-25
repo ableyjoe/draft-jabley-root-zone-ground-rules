@@ -4,8 +4,8 @@
 
 Network Working Group                                           J. Abley
 Internet-Draft                                                Cloudflare
-Intended status: Standards Track                            24 July 2025
-Expires: 25 January 2026
+Intended status: Standards Track                            25 July 2025
+Expires: 26 January 2026
 
 
         Base Protocol Requirements for the Root Zone of the DNS
@@ -14,14 +14,14 @@ Expires: 25 January 2026
 Abstract
 
    The root zone of the DNS is, in almost all ways, a DNS zone like any
-   other.  However, there are a small number of ways in which the root
-   zone has special requirements, for reasons relating to DNS protocol
-   or operational considerations.  This document describes some ways in
-   which the root zone is special and imposes corresponding technical
-   requirements on the contents of the root zone.  These requirements
-   form a minimal starting point for other policies that relate to the
-   root zone of the DNS, many of which are developed and implemented
-   outside the IETF.
+   other, and shares the same DNS protocol requirements.  However, there
+   are a small number of ways in which the root zone is special, in some
+   cases as a consequence of the wider DNS protocol protocol or for
+   operational reason.  This document describes some ways in which the
+   root zone is special and imposes corresponding technical requirements
+   on the contents of the root zone.  These requirements form a minimal
+   starting point for other policies that relate to the root zone of the
+   DNS, many of which are developed and implemented outside the IETF.
 
 About This Document
 
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 January 2026.
+   This Internet-Draft will expire on 26 January 2026.
 
 Copyright Notice
 
@@ -77,8 +77,8 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  Technical, Protocol Constraints on Root Zone Generation
-     3.1.  Constraints on Root Zone Apex Resource Record Sets
-     3.2.  DNS Security Extensions (DNSSEC)
+     3.1.  Constraints Commnon to All Zones
+     3.2.  Special Constraints for the Root Zone
    4.  Security Considerations
    5.  IANA Considerations
    6.  References
@@ -92,7 +92,7 @@ Table of Contents
    The Domain Name System (DNS), originally specified in [RFC1034] and
    [RFC1035], implements a namespace that is distributed structurally as
    a collection of zones, connected together as a tree.  The root zone
-   in the DNS is the ancestor of all other zones.
+   in the DNS is the ancestor of all other zones and has no parent.
 
    From the perspective of the DNS protocol, all zones in the DNS share
    the same essential properties.  However, the root zone is special in
@@ -120,7 +120,7 @@ Table of Contents
 
 3.  Technical, Protocol Constraints on Root Zone Generation
 
-3.1.  Constraints on Root Zone Apex Resource Record Sets
+3.1.  Constraints Commnon to All Zones
 
    The root zone MUST include exactly one SOA resource record with empty
    owner name and class IN.  This is a consequence of the requirements
@@ -137,6 +137,8 @@ Table of Contents
    of any of the RRSets described above.  All such policy decisions are
    instead deferred to the appropriate competent authorities.
 
+3.2.  Special Constraints for the Root Zone
+
    The root zone MUST NOT include A or AAAA resource records with empty
    owner name and class IN.  Multiple specifications make use of an
    empty domain name to mean "not available", including [RFC2782],
@@ -146,10 +148,7 @@ Table of Contents
    root servers.  Positive responses to such queries would have poor
    security characteristics and are therefore prohibited.
 
-3.2.  DNS Security Extensions (DNSSEC)
-
-   DNSSEC MUST be deployed in the root zone, as specified in [RFC4033],
-   [RFC4034] and [RFC4035].
+   DNSSEC MUST be deployed in the root zone, as specified in [RFC9364].
 
    This document does not specify practices around key management,
    signature generation, algorithm choice or any other parameter
@@ -194,24 +193,13 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
-              Rose, "DNS Security Introduction and Requirements",
-              RFC 4033, DOI 10.17487/RFC4033, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4033>.
-
-   [RFC4034]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
-              Rose, "Resource Records for the DNS Security Extensions",
-              RFC 4034, DOI 10.17487/RFC4034, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4034>.
-
-   [RFC4035]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
-              Rose, "Protocol Modifications for the DNS Security
-              Extensions", RFC 4035, DOI 10.17487/RFC4035, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4035>.
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9364]  Hoffman, P., "DNS Security Extensions (DNSSEC)", BCP 237,
+              RFC 9364, DOI 10.17487/RFC9364, February 2023,
+              <https://www.rfc-editor.org/rfc/rfc9364>.
 
    [RFC9499]  Hoffman, P. and K. Fujiwara, "DNS Terminology", BCP 219,
               RFC 9499, DOI 10.17487/RFC9499, March 2024,
