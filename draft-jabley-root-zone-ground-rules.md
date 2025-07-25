@@ -39,14 +39,15 @@ informative:
 --- abstract
 
 The root zone of the DNS is, in almost all ways, a DNS zone like
-any other.  However, there are a small number of ways in which the
-root zone has special requirements, for reasons relating to DNS
-protocol or operational considerations.  This document describes
-some ways in which the root zone is special and imposes corresponding
-technical requirements on the contents of the root zone. These
-requirements form a minimal starting point for other policies that
-relate to the root zone of the DNS, many of which are developed and
-implemented outside the IETF.
+any other, and shares the same DNS protocol requirements.  However,
+there are a small number of ways in which the root zone is special,
+in some cases as a consequence of the wider DNS protocol protocol
+or for operational reason.  This document describes some ways in
+which the root zone is special and imposes corresponding technical
+requirements on the contents of the root zone. These requirements
+form a minimal starting point for other policies that relate to the
+root zone of the DNS, many of which are developed and implemented
+outside the IETF.
 
 --- middle
 
@@ -55,7 +56,8 @@ implemented outside the IETF.
 The Domain Name System (DNS), originally specified in {{!RFC1034}}
 and {{!RFC1035}}, implements a namespace that is distributed
 structurally as a collection of zones, connected together as a tree.
-The root zone in the DNS is the ancestor of all other zones.
+The root zone in the DNS is the ancestor of all other zones and
+has no parent.
 
 From the perspective of the DNS protocol, all zones in the DNS share
 the same essential properties.  However, the root zone is special
@@ -79,7 +81,7 @@ in {{!RFC9499}}.
 
 # Technical, Protocol Constraints on Root Zone Generation
 
-## Constraints on Root Zone Apex Resource Record Sets
+## Constraints Commnon to All Zones
 
 The root zone MUST include exactly one SOA resource record with
 empty owner name and class IN. This is a consequence of the
@@ -97,6 +99,8 @@ targets, the number of NS resource records in the NS RRSet or the
 TTL of any of the RRSets described above. All such policy decisions
 are instead deferred to the appropriate competent authorities.
 
+## Special Constraints for the Root Zone
+
 The root zone MUST NOT include A or AAAA resource records with empty
 owner name and class IN. Multiple specifications make use of an
 empty domain name to mean "not available", including {{?RFC2782}},
@@ -106,10 +110,8 @@ with empty QNAME, QCLASS="IN" and QTYPE="A" or "AAAA" are observed
 at root servers. Positive responses to such queries would have poor
 security characteristics and are therefore prohibited.
 
-## DNS Security Extensions (DNSSEC)
-
 DNSSEC MUST be deployed in the root zone, as specified in
-{{!RFC4033}}, {{!RFC4034}} and {{!RFC4035}}.
+{{!RFC9364}}.
 
 This document does not specify practices around key management,
 signature generation, algorithm choice or any other parameter
